@@ -76,11 +76,11 @@ msg:
 rc:
     description:
         - return 0 if desired version is equal to installed version.
-        - return 0 also if no desired version is installed.
         - return -1 if desired version cannot be validated.
         - return 1 if it cannot get version from command.
         - return 2 if desired version is greater than installed version.
         - return -2 if desired version is less than installed version.
+        - return 3 if no desired version is installed.
     type: int
     returned: always
     sample: 0
@@ -123,6 +123,7 @@ def run_module():
     # Early return if command does not exist
     if not shutil.which(command_version[0]):
         result["msg"] = "No desired version is installed."
+        result["rc"] = 3
         module.exit_json(**result)
 
     _, stdout, _ = module.run_command(command_version)
