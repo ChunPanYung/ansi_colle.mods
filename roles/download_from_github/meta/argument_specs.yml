@@ -1,0 +1,73 @@
+---
+argument_specs:
+  main:
+    short_description: Main entry for the download_from_github.
+    description:
+      - This role will compare existing command version to version from github using api.
+      - It will download binary if command does not exist, or github release a new version.
+      - It only support Linux.
+      - It will move to destination specifed, or you can supply download only option.
+      - All return value will be saved in a variable call download_cmd_from_github_rv, type dict.
+    author:
+      - Chun Pan Yung
+    options:
+      get_cmd_version:
+        type: "str"
+        required: true
+        description:
+          - Complete command to get the currenct command version.
+          - It will use provided command to get currenct command version.
+          - It only take 2 words.
+      github_url_api:
+        type: "str"
+        required: true
+        description:
+          - github REST API endpoints for latest release.
+          - Supply only the owner and repo name in the form of '{owner}/repo'.
+      file_mode:
+        type: str
+        required: false
+        default: "0755"
+        description:
+          - Default file permission.
+      file_owner:
+        type: "str"
+        required: false
+        default: "root"
+        description:
+          - Default file owner.
+      file_group:
+        type: "str"
+        required: false
+        default: "root"
+        description:
+          - Default file group.
+      release_asset_index:
+        type: "int"
+        required: false
+        default: 0
+        description:
+          - Asset index number from latest github release page.
+          - It always starts with 0.
+          - First item is 0, second item is 1, and third item is 3 etc.
+      download_type:
+        type: "str"
+        required: false
+        default: "move_to_desination"
+        choices:
+          - move_to_destination
+          - download_only
+          - extract_and_move
+        description:
+          - Where should the file goes after download.
+          - move_to_destionation, will move according to value of 'file_destination'.
+          - extract_and_move, will move according to value of 'file_destination' after extracting file.
+          - download_only, download file only and return download file path, ignore value from 'file_destination'.
+      file_destination:
+        type: "str"
+        required: false
+        default: "usr/local/bin"
+        description:
+          - Where should the cmd goes after download.
+          - This value is ignored if 'download_type' == 'download_only'.
+# https://api.github.com/repos/PowerShell/PowerShell/releases/latest
