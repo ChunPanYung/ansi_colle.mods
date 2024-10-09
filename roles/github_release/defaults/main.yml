@@ -5,7 +5,7 @@ github_release_repo: ""
 github_release_cmd_mode: "0755"
 github_release_cmd_owner: ""
 github_release_cmd_group: ""
-release_asset_index: 0
+github_release_asset_index: 0
 github_release_download_type: "move_to_destination"
 github_release_destionation: "/usr/local/bin/"
 github_release_sudo_privilege: false
