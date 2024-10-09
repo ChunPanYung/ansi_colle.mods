@@ -22,7 +22,7 @@
 
     - name: Download executables for linux x64 system
       ansible.builtin.get_url:
-        url: "{{ __cmp_output.json.assets[release_asset_index].browser_download_url }}"
+        url: "{{ __github_api.json.assets[release_asset_index].browser_download_url }}"
         dest: "{{ __tempdir.path }}/"
         mode: '0644'
 
